@@ -14,9 +14,11 @@ While there are a few ways to achieve this, i found Dr. Gleb Bahmutov's techniqu
 Here is how i've expanded upon that original concept with some convience helpers to keep my tests readable when testing multiple windows:
 
 Note: this only works if you're within the same "baseDomain":
+
 OK: 
 - `base.domain/pageA`
 - `sub.base.domain/pageB`
+
 NOT OK:
 - `some.otherdomain/pageC`
 
