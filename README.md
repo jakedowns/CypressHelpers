@@ -32,3 +32,5 @@ They're really popup-windows or child-windows, but i call them tabs for api brev
 - `cy.closeAllTabs()`
 - `cy.visit` added support for `options.window_name` (defaults to `root`)
 - debugTabHelper
+
+TODO: maybe calling cy.visit should just open a new tab when you give it a unique tab_name, then i could make openTab a private method
