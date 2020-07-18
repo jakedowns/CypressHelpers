@@ -20,7 +20,7 @@ window.top.myTabNames = myTabNames;
 // TODO: make this a nice collapsing table
 function debugTabState() {
     // comment this out to silence it
-    //console.warn('debugTabState:')
+    console.warn('-----debugTabState: active_tab:',active_tab_index + ' ' + myTabNames[active_tab_index])
     myTabs.forEach((_win, k) => {
         console.warn(k, {
             active_tab_index,
@@ -87,7 +87,9 @@ Cypress.Commands.add('tabVisit', (url, tab_name) => {
             // console.warn('aut?', aut, originalWindow.document.getElementsByClassName('aut-iframe')[0])
             aut.onload = function () {
                 aut.onload = null;
+                active_tab_index = 0
                 setTimeout(() => {
+                    active_tab_index = 0
                     myTabs[0] = aut.contentWindow
                     cy.state('document', aut.contentWindow.document)
                     cy.state('window', aut.contentWindow)
@@ -102,7 +104,8 @@ Cypress.Commands.add('tabVisit', (url, tab_name) => {
     } else {
         // for popupwindows, just call openTab
         active_tab_index = window_index
-        cy.openTab(url, {window_index, tab_name}).then(() => {
+        return cy.openTab(url, {window_index, tab_name}).then(() => {
+            console.log('AFTER OPENTAB')
             active_tab_index = window_index
         })
     }
@@ -145,28 +148,35 @@ Cypress.Commands.add('openTab', (url, opts) => {
             console.warn('>>>> openTab %s "%s %s"', url, opts.windowFeatures, indexNext, opts.tab_name);
             // https://developer.mozilla.org/en-US/docs/Web/API/Window/open
             popupcounter++;
-            let popup = window.top.open(url, windowName, opts.windowFeatures)
+            let popup = myTabs[indexNext] ? myTabs[indexNext] : window.top.open(url, windowName, opts.windowFeatures)
             myTabs[indexNext] = popup
             myTabs[indexNext].ATABNAME = myTabNames[indexNext]
             // letting page enough time to load and set "document.domain = localhost"
             // so we can access it
-            setTimeout(() => {
-                cy.state('document', popup.document)
-                cy.state('window', popup)
-                console.warn('>>>> afterOpenWindow')
-                debugTabState()
-                resolve()
-            }, 1000)
+            function checkReady(){
+                // thought checking document.domain would work but it never seems to update
+                // if(popup.document.domain !== "localhost"){
+                // checking body length is important for chrome tho, otherwise it will try and execute tests on about:blank
+                if(!popup.document.body || popup.document.body.innerHTML.length===0){
+                    setTimeout(()=>{
+                        checkReady()
+                    },32); // arbitrary delay
+                }else{
+                    cy.state('document', popup.document)
+                    cy.state('window', popup)
+                    console.warn('>>>> after openTab')
+                    debugTabState()
+                    resolve();
+                }
+            }
+            checkReady();
         })
         return promise
-        // promise.then(()=>{
-        //     cy.visit(url)
-        // })
     }
     active_tab_index = indexNext;
     if(myTabs[indexNext]){
-        //cy.closeTab(indexNext).then(finalize)
-        return finalize()
+        cy.closeTab(indexNext).then(finalize)
+        // return finalize()
     }else{
         return finalize()
     }
