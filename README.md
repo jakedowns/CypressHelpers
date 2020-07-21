@@ -2,6 +2,19 @@
 cypress tips and tricks i've found
 
 ## Tip 1: Switching "Tabs" / Switching between windows
+
+## Cypress Tab Helper Commands Reference
+See tab-helpers.js. Just add it to your `support/commands.js` file
+They're really popup-windows or child-windows, but i call them tabs for api brevity
+- `cy.openTab(url, opts)`
+- `cy.tabVisit(url, window_name)`
+- `cy.switchToTab(tab_name)`
+- `cy.closeTab(index_or_name)` - pass nothing to close active tab
+- `cy.closeAllTabs()`
+- `cy.visit` added support for `options.window_name` (defaults to `root`)
+- debugTabHelper
+
+### Why?
 If you're like me, when you first started using Cypress you fell in love immedately but then were annoyed by some of their opinionated descisions.
 For example: not supporting switching between "tabs" or pop-up windows.
 Luckily, vp of eng of Cypress, [@bahmutov](https://twitter.com/bahmutov) posted on his peronal Blog and Github repo about frame-busting and "Cypress using child window": 
@@ -22,15 +35,4 @@ OK:
 NOT OK:
 - `some.otherdomain/pageC`
 
-## Cypress Tab Helper Command API Reference
-See tab-helpers.js. Just add it to your `support/commands.js` file
-They're really popup-windows or child-windows, but i call them tabs for api brevity
-- `cy.openTab(url, opts)`
-- `cy.tabVisit(url, window_name)`
-- `cy.switchToTab(tab_name)`
-- `cy.closeTab(index_or_name)` - pass nothing to close active tab
-- `cy.closeAllTabs()`
-- `cy.visit` added support for `options.window_name` (defaults to `root`)
-- debugTabHelper
 
-TODO: maybe calling cy.visit should just open a new tab when you give it a unique tab_name, then i could make openTab a private method
