@@ -11,7 +11,7 @@ They're really popup-windows or child-windows, but i call them tabs for api brev
 - `cy.switchToTab(tab_name)`
 - `cy.closeTab(index_or_name)` - pass nothing to close active tab
 - `cy.closeAllTabs()`
-- `cy.visit` added support for `options.window_name` (defaults to `root`)
+- `cy.visit` added support for `options.tab_name` (defaults to `root`)
 - debugTabHelper
 
 ### Why?
