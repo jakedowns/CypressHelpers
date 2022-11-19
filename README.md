@@ -9,7 +9,7 @@ so i would have one frame represent a user visiting one page, and then a second 
 download frame_helpers.js to your /cypress/support/ folder
 import 'frame_helpers' or require('frame_helpers') in the support/index.js file
 
-- `cy.frameEnter(selector)`
+- `cy.frameEnter(selector)` - switch current context to a iframe element
 - `cy.frameExit()` - go back to base page context which contains the iframes
 - `cy.frameVisit(selector,url)` - make frame visit a url
 - `cy.frameReload(selector)` - reload the frame
