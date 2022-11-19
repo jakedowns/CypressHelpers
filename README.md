@@ -2,7 +2,12 @@
 cypress tips and tricks i've found
 
 Instead of cycling windows, i found it was more helpful to create a page with iframes in it, and then target/enter/exit the iframes as needed
-so i would have one frame represent a user visiting one page, and then a second frame representing a user visiting another page, maybe sending websocket events for example, then going back to the first frame, to see if the event was sent and that the page updated
+
+so i would have one frame represent a user visiting one page, 
+
+and then a second frame representing a user visiting another page, maybe sending websocket events for example, 
+
+then going back to the first frame, to see if the event was sent and that the page updated
 
 shoutout to [https://www.npmjs.com/package/cypress-iframe](https://www.npmjs.com/package/cypress-iframe) which is similar, but not quite the same
 
