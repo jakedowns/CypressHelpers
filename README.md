@@ -4,10 +4,13 @@ cypress tips and tricks i've found
 Instead of cycling windows, i found it was more helpful to create a page with iframes in it, and then target/enter/exit the iframes as needed
 so i would have one frame represent a user visiting one page, and then a second frame representing a user visiting another page, maybe sending websocket events for example, then going back to the first frame, to see if the event was sent and that the page updated
 
+shoutout to [https://www.npmjs.com/package/cypress-iframe](https://www.npmjs.com/package/cypress-iframe) which is similar, but not quite the same
+
 ## Cypress Frame Helper Commands Reference
 
-download frame_helpers.js to your /cypress/support/ folder
-import 'frame_helpers' or require('frame_helpers') in the support/index.js file
+1. download frame_helpers.js to your /cypress/support/ folder
+
+2. import 'frame_helpers' or require('frame_helpers') in the support/index.js file
 
 - `cy.frameEnter(selector)` - switch current context to a iframe element
 - `cy.frameExit()` - go back to base page context which contains the iframes
