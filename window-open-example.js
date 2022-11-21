@@ -1,3 +1,5 @@
+// this example relies on https://github.com/jakedowns/CypressHelpers/blob/master/commands_tab_helpers.js being added to your support/commands file
+
 cy.visit('/page-with-window-open',{
 
     // NOTE: we define a "tab_name" for the "Root Tab" so we can switch back to it
