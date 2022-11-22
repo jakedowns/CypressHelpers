@@ -26,8 +26,13 @@ shoutout to [https://www.npmjs.com/package/cypress-iframe](https://www.npmjs.com
 ## Tip 1: Switching "Tabs" / Switching between windows
 
 ## Cypress Tab Helper Commands Reference
+
 See tab-helpers.js. Just add it to your `support/commands.js` file
+
 They're really popup-windows or child-windows, but i call them tabs for api brevity
+
+see [https://github.com/jakedowns/CypressHelpers/blob/master/tab_window_switching_test.cy.js](https://github.com/jakedowns/CypressHelpers/blob/master/tab_window_switching_test.cy.js) for example usage
+
 - `cy.openTab(url, opts)`
 - `cy.tabVisit(url, window_name)`
 - `cy.switchToTab(tab_name)`
